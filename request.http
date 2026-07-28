@@ -1,0 +1,101 @@
+### Kunden anlegen 1
+POST http://localhost:8080/kunde
+Content-Type: application/json
+
+{
+  "companyName": "Müller GmbH",
+  "zipCode": "10115",
+  "city": "Berlin",
+  "email": "info@mueller.de",
+  "telephone": "0301234567"
+}
+
+###
+
+### Kunden anlegen 2
+POST http://localhost:8080/kunde
+Content-Type: application/json
+
+{
+  "companyName": "Schneider AG",
+  "zipCode": "20095",
+  "city": "Hamburg",
+  "email": "info@schneider.de",
+  "telephone": "0401234567"
+}
+
+###
+
+### Kunden anlegen 3
+POST http://localhost:8080/kunde
+Content-Type: application/json
+
+{
+  "companyName": "Meier OHG",
+  "zipCode": "80331",
+  "city": "München",
+  "email": "info@meier.de",
+  "telephone": "0891234567"
+}
+
+###
+
+### Kunden anlegen 4
+POST http://localhost:8080/kunde
+Content-Type: application/json
+
+{
+  "companyName": "Becker KG",
+  "zipCode": "50667",
+  "city": "Köln",
+  "email": "info@becker.de",
+  "telephone": "02211234567"
+}
+
+###
+
+### Kunden anlegen 5
+POST http://localhost:8080/kunde
+Content-Type: application/json
+
+{
+  "companyName": "Fischer GmbH",
+  "zipCode": "04109",
+  "city": "Leipzig",
+  "email": "info@fischer.de",
+  "telephone": "03411234567"
+}
+
+###
+
+### Kunden anlegen 6
+POST http://localhost:8080/kunde
+Content-Type: application/json
+
+{
+  "companyName": "Weber GmbH",
+  "zipCode": "70173",
+  "city": "Stuttgart",
+  "email": "info@weber.de",
+  "telephone": "07111234567"
+}
+
+###
+
+### Alle Kunden
+GET http://localhost:8080/kunde
+
+###
+
+### Pagination - Seite 0
+GET http://localhost:8080/kunde?page=0&size=2
+
+###
+
+### Pagination - Seite 1
+GET http://localhost:8080/kunde?page=1&size=2
+
+###
+
+### Pagination - Seite 2
+GET http://localhost:8080/kunde?page=2&size=2

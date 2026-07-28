@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kunden | Kundenverwaltung</title>
+    <link rel="stylesheet" href="css/style.css?v=20260739">
+</head>
+<body>
+<aside class="app-sidebar"><a class="brand" href="index.html?ui=20260721">Tankstelle Oberholzner</a>
+    <nav class="main-navigation" aria-label="Hauptnavigation"><a class="nav-link" href="overview.html?ui=20260722">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/>
+            <path d="M9 21v-7h6v7"/>
+        </svg>
+        Übersicht</a><a class="nav-link" href="license-plates.html?ui=20260721">
+        <img class="nav-icon nav-icon-image" src="Icons/car-solid-full.svg" alt="" aria-hidden="true">
+        Kennzeichen</a><a class="nav-link active" href="customers.html?ui=20260721" aria-current="page">
+        <img class="nav-icon nav-icon-image" src="Icons/people-group-solid-full.svg" alt="" aria-hidden="true">
+        Kunden</a></nav>
+</aside>
+<main class="page-content">
+    <section class="page-tools" aria-label="Kunden durchsuchen und verwalten"><label class="search-field"
+                                                                                     for="customer-search"><span
+            class="visually-hidden">Kunden suchen</span>
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+             aria-hidden="true">
+            <circle cx="11" cy="11" r="6.5"/>
+            <path d="m16 16 4.5 4.5"/>
+        </svg>
+        <input id="customer-search" type="search" placeholder="Kunden suchen"></label>
+        <div class="toolbar">
+            <button class="button button-success" id="open-csv-import-button" type="button"><img src="Icons/file-csv-solid-full.svg" alt="" aria-hidden="true">CSV importieren</button>
+            <button class="button button-success" id="new-customer-button" type="button"><img src="Icons/plus-solid-full.svg" alt="" aria-hidden="true">Neuer Kunde</button>
+        </div>
+    </section>
+    <section class="content-card" aria-labelledby="customer-table-heading"><h1 id="customer-table-heading"
+                                                                               class="visually-hidden">Kundenliste</h1>
+        <div class="table-wrapper">
+            <table id="customers-table">
+                <thead>
+                <tr>
+                    <th>Kundenname</th>
+                    <th>Postleitzahl</th>
+                    <th>Ort</th>
+                    <th>Adresse</th>
+                    <th>Anzahl Kennzeichen</th>
+                    <th class="actions-column">Aktionen</th>
+                </tr>
+                </thead>
+                <tbody id="customers-table-body">
+                <tr class="empty-state">
+                    <td colspan="6">Kundendaten werden hier angezeigt.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section class="table-status" aria-live="polite">
+        <span id="customer-record-count">Gesamtanzahl Kunden: 0</span>
+    </section>
+    <nav class="pagination" id="customer-pagination" aria-label="Seitennavigation">
+        <button type="button" data-page="previous" aria-label="Vorherige Seite">‹</button>
+        <button class="active" type="button" data-page="1" aria-current="page">1</button>
+        <button type="button" data-page="2">2</button>
+        <button type="button" data-page="3">3</button>
+        <button type="button" data-page="next" aria-label="Nächste Seite">›</button>
+    </nav>
+</main>
+<dialog class="modal" id="customer-modal" aria-labelledby="customer-modal-title">
+    <form id="customer-form" method="dialog">
+        <div class="modal-header"><h2 id="customer-modal-title">Neuer Kunde</h2>
+            <button class="icon-button" id="close-customer-modal" type="button" aria-label="Dialog schließen">×</button>
+        </div>
+        <input id="customer-id" type="hidden">
+        <div class="form-grid"><label for="customer-name">Kundenname<input id="customer-name"
+                                                                                   name="customerName"
+                                                                                   required></label><label
+                for="customer-zip-code">Postleitzahl<input id="customer-zip-code" name="zipCode"></label><label
+                for="customer-city">Ort<input id="customer-city" name="city"></label><label
+                for="customer-address">Adresse<input id="customer-address" name="address"></label></div>
+        <div class="modal-actions">
+            <button class="button button-secondary" id="cancel-customer-button" type="button">Abbrechen</button>
+            <button class="button button-success" type="submit">Speichern</button>
+        </div>
+    </form>
+</dialog>
+<dialog class="modal import-dialog" id="csv-import-dialog" aria-labelledby="csv-import-title">
+    <div class="import-dialog-content">
+        <div class="modal-header">
+            <div>
+                <h2 id="csv-import-title">Kunden aus CSV importieren</h2>
+                <p class="import-description">Wählen Sie eine CSV-Datei aus, um Kunden zu importieren.</p>
+            </div>
+            <button class="icon-button" id="close-csv-import-button" type="button" aria-label="Dialog schließen">×</button>
+        </div>
+
+        <div class="csv-file-picker">
+            <input class="visually-hidden" id="csv-import-file" type="file" accept=".csv,text/csv">
+            <label class="button button-secondary" for="csv-import-file">Datei auswählen</label>
+            <span class="csv-file-name" id="csv-import-file-name">Keine Datei ausgewählt</span>
+        </div>
+
+        <section class="csv-preview" id="csv-preview" aria-labelledby="csv-preview-title" hidden>
+            <h3 id="csv-preview-title">Vorschau der ersten 5 Datensätze</h3>
+            <div class="csv-preview-table-wrapper">
+                <table class="csv-preview-table">
+                    <thead>
+                    <tr>
+                        <th>Kundenname</th>
+                        <th>PLZ</th>
+                        <th>Ort</th>
+                        <th>Adresse</th>
+                    </tr>
+                    </thead>
+                    <tbody id="csv-preview-body"></tbody>
+                </table>
+            </div>
+            <p class="csv-record-count" id="csv-record-count"></p>
+        </section>
+
+        <div class="modal-actions import-dialog-actions">
+            <button class="button button-secondary" id="cancel-csv-import-button" type="button">Abbrechen</button>
+            <button class="button button-success" id="import-csv-button" type="button" disabled>Importieren</button>
+        </div>
+    </div>
+</dialog>
+<div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="false"></div>
+<dialog class="notification-dialog notification-dialog-error" id="error-dialog" aria-labelledby="error-dialog-title">
+    <div class="notification-dialog-header">
+        <span class="notification-dialog-icon" aria-hidden="true">!</span>
+        <h2 id="error-dialog-title">Fehler</h2>
+    </div>
+    <div class="notification-dialog-body"><p id="error-dialog-message"></p></div>
+    <div class="notification-dialog-actions">
+        <button class="button button-error" type="button" data-error-dialog-close>OK</button>
+    </div>
+</dialog>
+<dialog class="notification-dialog notification-dialog-confirm" id="confirmation-dialog" aria-labelledby="confirmation-dialog-title">
+    <div class="notification-dialog-header">
+        <span class="notification-dialog-icon" aria-hidden="true">?</span>
+        <h2 id="confirmation-dialog-title">Aktion bestätigen</h2>
+    </div>
+    <div class="notification-dialog-body"><p id="confirmation-dialog-message"></p></div>
+    <div class="notification-dialog-actions">
+        <button class="button button-secondary" type="button" data-confirmation-cancel>Abbrechen</button>
+        <button class="button button-error" type="button" data-confirmation-accept>Bestätigen</button>
+    </div>
+</dialog>
+<script src="js/notifications.js?v=20260727"></script>
+<script src="js/customers.js?v=20260732"></script>
+</body>
+</html>
