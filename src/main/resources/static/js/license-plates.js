@@ -1,6 +1,6 @@
 const LICENSE_PLATE_API_URL = "/licensePlate";
 const CUSTOMER_API_URL = "/kunde";
-const LICENSE_PLATE_IMPORT_API_URL = "/kennzeichen/import";
+const LICENSE_PLATE_IMPORT_API_URL = "/licensePlate/import";
 const PAGE_SIZE = 10;
 const NON_UNIQUE_LICENSE_PLATES = new Set(["MASCHINEN", "TANKGUTSCHEINE"]);
 

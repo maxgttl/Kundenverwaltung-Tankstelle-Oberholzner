@@ -23,7 +23,7 @@ public class LicensePlateService {
     private final  LicensePlateRepository licensePlateRepository;
     private final CustomerRepository customerRepository;
     private final CustomerService customerService;
-    private static final Set<String> NON_UNIQUE_VALUES = Set.of("MASCHINEN", "TANKGUTSCHEINE");
+    private static final Set<String> NON_UNIQUE_VALUES = Set.of("MASCHINEN", "TANKGUTSCHEINE", "TANKAUTOMAT");
 
     public LicensePlateService(LicensePlateRepository licensePlateRepository, CustomerRepository customerRepository ,CustomerService customerService){
         this.licensePlateRepository = licensePlateRepository;

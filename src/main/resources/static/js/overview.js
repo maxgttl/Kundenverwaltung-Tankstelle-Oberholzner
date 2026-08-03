@@ -138,12 +138,18 @@ function getSearchableText(entry) {
     return normalizeSearchText([
         entry.stationNumber,
         entry.customer?.customerName,
-        entry.licensePlate
+        entry.customer?.normalizedCustomerName,
+        entry.licensePlate,
+        entry.normalizedLicensePlate
     ].filter(Boolean).join(" "));
 }
 
 function normalizeSearchText(value) {
-    return String(value || "").toLocaleLowerCase("de-DE");
+    return String(value || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^A-Za-z0-9]/g, "")
+        .toUpperCase();
 }
 
 function handlePaginationClick(event) {
